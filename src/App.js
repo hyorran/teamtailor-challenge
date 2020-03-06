@@ -1,12 +1,8 @@
 import * as React from 'react'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import ScreenRouter from './screens/ScreenRouter'
 
-function App() {
-  return (
-    <div>
-      teste
-    </div>
-  )
-}
+const App = () => (
+  <ScreenRouter />
+)
 
 export default App
