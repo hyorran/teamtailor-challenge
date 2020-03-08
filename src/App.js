@@ -1,8 +1,10 @@
 import * as React from 'react'
 import ScreenRouter from './screens/ScreenRouter'
-
+import StoreProvider from '../src/store/StoreProvider'
 const App = () => (
-  <ScreenRouter />
+  <StoreProvider>
+    <ScreenRouter />
+  </StoreProvider>
 )
 
 export default App
