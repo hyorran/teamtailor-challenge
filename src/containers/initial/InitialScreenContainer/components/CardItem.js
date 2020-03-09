@@ -2,8 +2,9 @@ import * as React from 'react'
 import styled from 'styled-components'
 import map from 'lodash/map'
 import get from 'lodash/get'
+import find from 'lodash/find'
 import isEmpty from 'lodash/isEmpty'
-import Avatar from '@material-ui/core/Avatar'
+import MuiAvatar from '@material-ui/core/Avatar'
 import TextTruncate from 'react-text-truncate'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import MuiCollapse from '@material-ui/core/Collapse'
@@ -31,7 +32,8 @@ const Card = styled(MuiCard)`
 const CardHeader = styled(MuiCardHeader).attrs(() => ({
   titleTypographyProps: {
     style: {
-      fontSize: 12
+      fontSize: 12,
+      fontWeight: 800
     }
   },
   subheaderTypographyProps: {
@@ -45,7 +47,9 @@ const CardMedia = styled(MuiCardMedia)`
   padding-top: 56.25%;
 `
 const CardContent = styled(MuiCardContent)`
-
+  flex-direction: row;
+  justify-content: flex-start;
+  text-align: justify;
 `
 const CardActions = styled(MuiCardActions)`
 
@@ -54,8 +58,8 @@ const IconButton = styled(MuiIconButton)`
   ${({theme}) => `
     margin-left: auto;
     transition: ${theme.transitions.create('transform', {
-  duration: theme.transitions.duration.shortest,
-})}
+      duration: theme.transitions.duration.shortest,
+    })}
   `}
 `
 const Collapse = styled(MuiCollapse)`
@@ -65,10 +69,20 @@ const ApplyButton = styled(MuiButton)`
   width: 100%;
   min-height: 20px;
 `
+const Avatar = styled(MuiAvatar)`
+  ${({theme}) => `
+    border: 2px solid ${theme.palette.primary.main}
+  `}
+`
 const CardItem = (props) => {
   const {
-    item
+    item,
+    title,
+    subHeader,
+    location,
+    picture
   } = props
+  
   const [expanded, setExpanded] = React.useState(false)
   
   const handleExpandClick = () => {
@@ -84,16 +98,16 @@ const CardItem = (props) => {
       <Card>
         <CardHeader
           avatar={
-            <Avatar>
-              J
-            </Avatar>
+            <Avatar
+              src={ picture }
+            />
           }
           title={
             <TextTruncate
               line={2}
               element="span"
               truncateText="…"
-              text={ item?.attributes?.title }
+              text={ title.toUpperCase() }
             />
           }
           subheader={
@@ -101,26 +115,25 @@ const CardItem = (props) => {
               line={1}
               element="span"
               truncateText="…"
-              text={ item?.attributes?.pitch }
+              text={ subHeader }
             />
           }
         />
         <CardMedia
           image={ item?.attributes?.picture?.standard || wanted }
         />
-        {
-          !isEmpty(item.tags) && (
-            <CardContent>
-              {
-                map(item.tags, item => (
-                  <Typography>
-                    {item}
-                  </Typography>
-                ))
-              }
-            </CardContent>
-          )
-        }
+        <CardContent>
+          {
+            map(item.tags, item => (
+              <Typography>
+                {item}
+              </Typography>
+            ))
+          }
+          <Typography>
+            Location: {location || 'Not specified'}
+          </Typography>
+        </CardContent>
         <CardActions>
           <IconButton
             style={{

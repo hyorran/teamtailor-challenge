@@ -12,12 +12,13 @@ const getJobs = async (payload) => {
         Accept: 'application/vnd.api+json',
         'X-Api-Version': 20161108
       },
-      // params: {
-      //   page: {
-      //     size: 10,
-      //     number: 1
-      //   }
-      // },
+      params: {
+        // page: {
+        //   size: 10,
+        //   number: 1
+        // }
+        include: 'locations,role,user,department'
+      },
       paramsSerializer: function (params) {
         return qs.stringify(params, {arrayFormat: 'brackets'})
       }

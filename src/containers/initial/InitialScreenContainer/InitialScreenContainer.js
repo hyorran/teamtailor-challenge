@@ -1,5 +1,7 @@
 import * as React from 'react'
 import map from 'lodash/map'
+import find from 'lodash/find'
+import get from 'lodash/get'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import CardItem from './components/CardItem'
@@ -22,7 +24,9 @@ const ContainerContent = styled.section`
 `
 
 const InitialScreenContainer = () => {
-  const { jobs } = useSelector(state => state.jobs)
+  const {
+    jobs
+  } = useSelector(state => state.jobs)
   
   return (
     <ContainerComponent>
@@ -33,6 +37,18 @@ const InitialScreenContainer = () => {
               <CardItem
                 key={ item.id }
                 item={ item }
+                title={ item.attributes?.title }
+                subHeader={ item.attributes?.pitch }
+                location={
+                  get(find(jobs?.included, i => {
+                    return find(item.relationships?.locations?.data, inclItem => inclItem.id === i.id)
+                  }), 'attributes.city')
+                }
+                picture={
+                  get(find(jobs?.included, i => {
+                    return item.relationships?.user?.data.id === i.id
+                  }), 'attributes.picture.standard')
+                }
               />
             )
           })

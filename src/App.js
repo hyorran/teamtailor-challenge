@@ -4,17 +4,16 @@ import StoreProvider from '../src/store/StoreProvider'
 import styled, { ThemeProvider } from 'styled-components'
 import {
   StylesProvider,
-  ThemeProvider as MuiThemeProvider,
-  createMuiTheme
+  ThemeProvider as MuiThemeProvider
 } from '@material-ui/core'
+import theme from './assets/style/theme'
 
-const myTheme = createMuiTheme()
 
 const App = () => (
     <StoreProvider>
       <StylesProvider injectFirst>
-        <MuiThemeProvider theme={myTheme}>
-          <ThemeProvider theme={myTheme}>
+        <MuiThemeProvider theme={theme}>
+          <ThemeProvider theme={theme}>
             <ScreenRouter />
           </ThemeProvider>
         </MuiThemeProvider>
