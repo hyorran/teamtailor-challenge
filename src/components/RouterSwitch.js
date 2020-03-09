@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react'
 import PropTypes from 'prop-types'
 import map from 'lodash/map'
-import { Route, Switch, Redirect } from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
 
 const RouterSwitch = ({
   routes, escapeTo, ...props

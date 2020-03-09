@@ -23,14 +23,14 @@ const requestJobs = (state = INITIAL_STATE) => ({
 const requestJobsSuccess = (state = INITIAL_STATE, { payload }) => ({
   ...state,
   jobs: payload?.data,
-  loading: true,
+  loading: false,
   error: INITIAL_STATE.error
 })
 
 const requestJobsError = (state = INITIAL_STATE, { error }) => ({
   ...state,
   loading: false,
-  error: error
+  error
 })
 
 

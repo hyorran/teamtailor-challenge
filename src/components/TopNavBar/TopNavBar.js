@@ -5,14 +5,11 @@ import PropTypes from 'prop-types'
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
-import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions'
 import Grid from '@material-ui/core/Grid'
-import Divider from '@material-ui/core/Divider'
 import Avatar from '@material-ui/core/Avatar'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import Button from '@material-ui/core/Button'
-
-import useStyles from './styles'
+import Typography from '@material-ui/core/Typography'
 
 const Container = styled.header`
   width: 100%;
@@ -21,20 +18,27 @@ const ExpansionPanel = styled(MuiExpansionPanel)`
 
 `
 const ExpansionPanelSummary = styled(MuiExpansionPanelSummary)`
-  ${({theme}) => `
-    background-color: ${theme.palette.primary.dark}
-  `}
+  ${ ({ theme }) => `
+    background-color: ${ theme.palette.primary.dark }
+  ` }
+`
+const Title = styled(Typography)`
+  font-size: 24px;
+  color: white;
+`
+const ButtonsContainer = styled(Grid)`
+
 `
 
 const TopNavBar = (props) => {
   const {
     history
   } = props
-  const classes = useStyles()
-  
+
   const handlePageSelected = (page) => {
     history.push(page)
   }
+
   return (
     <Container>
       <ExpansionPanel
@@ -45,21 +49,25 @@ const TopNavBar = (props) => {
         >
           <Grid
             container
-            direction='row'
-            justify='space-between'
-            alignItems='flex-start'
+            direction="row"
+            justify="space-between"
+            alignItems="flex-start"
           >
             <Avatar>HP</Avatar>
+            <Title>
+              Jobs Available
+            </Title>
           </Grid>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <Grid
+          <ButtonsContainer
             container
-            className={ classes.buttonsContainer }
+            direction="row"
+            justify="space-between"
           >
             <Button
-              color='primary'
-              aria-label='contained primary'
+              color="primary"
+              variant="outlined"
               onClick={ () => handlePageSelected('/') }
             >
               Home
@@ -69,14 +77,8 @@ const TopNavBar = (props) => {
             >
               About
             </Button>
-          </Grid>
+          </ButtonsContainer>
         </ExpansionPanelDetails>
-        <Divider />
-        <ExpansionPanelActions>
-          <Button>
-            Logout
-          </Button>
-        </ExpansionPanelActions>
       </ExpansionPanel>
     </Container>
   )

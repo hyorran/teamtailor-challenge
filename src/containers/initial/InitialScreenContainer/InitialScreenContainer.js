@@ -5,8 +5,10 @@ import get from 'lodash/get'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import CardItem from './components/CardItem'
+import Loader from '../../../components/Loader'
 
 const ContainerComponent = styled.div`
+  flex: 1;
   grid-row-gap: 10px;
   grid-column: span 3;
   margin-right: 20px;
@@ -25,35 +27,43 @@ const ContainerContent = styled.section`
 
 const InitialScreenContainer = () => {
   const {
-    jobs
-  } = useSelector(state => state.jobs)
-  
+    jobs,
+    loading
+  } = useSelector((state) => state.jobs)
+
   return (
     <ContainerComponent>
-      <ContainerContent>
-        {
-          map(jobs?.data, item => {
-            return (
-              <CardItem
-                key={ item.id }
-                item={ item }
-                title={ item.attributes?.title }
-                subHeader={ item.attributes?.pitch }
-                location={
-                  get(find(jobs?.included, i => {
-                    return find(item.relationships?.locations?.data, inclItem => inclItem.id === i.id)
-                  }), 'attributes.city')
-                }
-                picture={
-                  get(find(jobs?.included, i => {
-                    return item.relationships?.user?.data.id === i.id
-                  }), 'attributes.picture.standard')
-                }
-              />
-            )
-          })
+      {
+        loading ? (
+          <Loader />
+        ) : (
+          <ContainerContent>
+            {
+              map(jobs?.data, (item) => (
+                <CardItem
+                  key={ item.id }
+                  item={ item }
+                  title={ item.attributes?.title }
+                  subHeader={ item.attributes?.pitch }
+                  location={
+                    get(find(jobs?.included,
+                      (i) => find(item.relationships?.locations?.data,
+                        (inclItem) => inclItem.id === i.id)), 'attributes.city')
+                  }
+                  picture={
+                    get(find(jobs?.included,
+                      (i) => item.relationships?.user?.data?.id === i.id), 'attributes.picture.standard')
+                  }
+                  department={
+                    get(find(jobs?.included,
+                      (i) => item.relationships?.department?.data?.id === i.id), 'attributes.name')
+                  }
+                />
+              ))
+            }
+          </ContainerContent>
+        )
         }
-      </ContainerContent>
     </ContainerComponent>
   )
 }

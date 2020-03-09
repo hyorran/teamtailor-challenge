@@ -1,14 +1,12 @@
-import {
-  call, delay, put, takeLatest
-} from 'redux-saga/effects'
-import { Types } from '../../ducks/jobs'
+import { call, delay, put, takeLatest } from 'redux-saga/effects'
 import { getJobs } from '../../httpServices'
+import { Types } from '../../ducks/jobs'
 
-function* requestJobs(params) {
+function* requestJobs() {
   try {
     yield delay(500)
     const apiResponse = yield call(getJobs)
-  
+
     yield put({
       type: Types.REQUEST_JOBS_SUCCESS,
       payload: apiResponse
