@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import useStyles from './styles'
 import { Types } from '../../../store/ducks/jobs'
 import { useDispatch, useSelector } from 'react-redux'
+import InitialScreenContainer from '../../../containers/initial/InitialScreenContainer'
 
 const InitialScreen = () => {
   const classes = useStyles()
@@ -13,10 +14,10 @@ const InitialScreen = () => {
       type: Types.REQUEST_JOBS
     })
   }, [dispatch])
-  console.warn(jobs)
+  
   return (
     <div className={ classes.container }>
-      initial screen
+      <InitialScreenContainer />
     </div>
   )
 }

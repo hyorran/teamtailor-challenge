@@ -22,7 +22,7 @@ const requestJobs = (state = INITIAL_STATE) => ({
 })
 const requestJobsSuccess = (state = INITIAL_STATE, { payload }) => ({
   ...state,
-  jobs: payload,
+  jobs: payload?.data,
   loading: true,
   error: INITIAL_STATE.error
 })
